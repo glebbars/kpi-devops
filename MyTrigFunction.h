@@ -7,4 +7,6 @@ public:
     double FuncA(int n);
 };
 
+double RunComputeWorkload(long n);
+
 #endif

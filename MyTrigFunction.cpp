@@ -1,5 +1,8 @@
 #include "MyTrigFunction.h"
 #include <iostream>
+#include <vector>
+#include <chrono>
+#include <algorithm>
 #include <cmath> // For pow and tgamma
 
 MyTrigFunction::MyTrigFunction() {}
@@ -16,4 +19,17 @@ double MyTrigFunction::FuncA(int n) {
     }
 
     return sum;
+}
+
+double RunComputeWorkload(long n) {
+    auto start = std::chrono::high_resolution_clock::now();
+    std::vector<double> values;
+    values.reserve(n);
+    MyTrigFunction trigFunc;
+    for (long i = 0; i < n; ++i) {
+        values.push_back(trigFunc.FuncA(i % 10));
+    }
+    std::sort(values.begin(), values.end());
+    auto end = std::chrono::high_resolution_clock::now();
+    return std::chrono::duration<double>(end - start).count();
 }
